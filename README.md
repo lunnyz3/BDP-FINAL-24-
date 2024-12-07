@@ -14,4 +14,4 @@
 
 ## 📚 문서 관리 및 참고 링크
 
-- [문서 관리 Notion 페이지](https://www.notion.so/14697188761b80729e1acc2bcc591669?v=369d874b51ec4fddb4b0241c73a8a0c9)
+- [문서 관리 Notion 페이지](https://heavenly-turnover-232.notion.site/BDP-Term-Project_4-1452d79f3a5080eab4e5f60e642bcb94?pvs=4)
