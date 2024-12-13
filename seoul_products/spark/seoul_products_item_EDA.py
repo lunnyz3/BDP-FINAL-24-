@@ -50,7 +50,7 @@ zero_ratio = zero_count_by_item.join(total_count_by_item, "item_name")     .with
 
 # 0원 비율이 30% 이하인 품목 처리
 low_zero_ratio_items = zero_ratio.filter(col("zero_ratio") <= 30).select("item_name").distinct()
-
+ 
 # 연도별 중앙값 계산
 data_with_medians = (
     data_tot.filter(data_tot.item_name.isin([row.item_name for row in low_zero_ratio_items.collect()]))
