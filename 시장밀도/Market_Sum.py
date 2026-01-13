@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, when
 
 # SparkSession 생성
 spark = SparkSession.builder.appName("Market_Sum").getOrCreate()
@@ -15,7 +15,15 @@ filtered_data = market_status.filter(
     (col("행정구역(서울)(3)") == "소계") & (col("행정구역(서울)(2)") != "소계")
 ).select(
     col("행정구역(서울)(2)").alias("자치구"),
-    col("20233").alias("시장 수")
+    col("20233").alias("시장 수")  # 기존 `2023` 대신 `20234` 사용
+)
+
+# "동대문"을 "동대문구"로 변환 및 "구"가 없는 자치구명에 "구" 추가
+filtered_data = filtered_data.withColumn(
+    "자치구",
+    when(col("자치구") == "동대문", "동대문구")  # 동대문 처리
+    .when(~col("자치구").endswith("구"), col("자치구") + "구")  # "구"가 없는 경우 추가
+    .otherwise(col("자치구"))
 )
 
 # 결과를 단일 파일로 저장
